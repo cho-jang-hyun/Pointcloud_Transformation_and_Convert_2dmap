@@ -11,6 +11,8 @@ reference: https://github.com/koide3/pointcloud_to_2dmap
 
 ```bash
 # Usage
+make
+./pointcloud_to_2dmap <path to original pcd file> <option>
 pointcloud_to_2dmap input_pcd dst_directory
 ```
 
