@@ -1,6 +1,13 @@
 # Pointcloud_Transformation_and_Convert_2dmap
 
-this repository is from kenji koide
+reference: https://github.com/koide3/pointcloud_to_2dmap
+
+## Requirement
+- Eigen
+- OpenCV
+- PCL
+
+
 
 ```bash
 # Usage
