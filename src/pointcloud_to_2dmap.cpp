@@ -33,10 +33,13 @@ public:
         continue;
       }
 
-      // 2D 맵에서 3D 맵의 시작점 설정
+      // 2D 맵에서 pointcloud의 시작점(0,0,0) 설정
+      // Set initial point(0,0,0) of 2D Map from pointclouds
+
       // 현재는 (1500 x 1500) 이미지의 (1125, 1125) (3/4 지점)를 PCD 데이터의 (0,0,0)을 맞춘다
-      int x = point.x * m2pix + map_width / 4 * 3;
-      int y = -point.y * m2pix + map_width / 4 * 3;
+      // Default size is (1500 x 1500), set initial point of image as (1125,1125) (1500 * (3/4))
+      int x = point.x * m2pix + map_width * (3/4);
+      int y = -point.y * m2pix + map_width * (3/4);
 
       if(x < 0 || x >= map_width || y < 0 || y >= map_height) {
         continue;
@@ -107,6 +110,8 @@ int main(int argc, char** argv) {
     ("max_height", po::value<double>()->default_value(2), "Max height of clipping range") // default: 1.0
     ("input_pcd", po::value<std::string>(), "Input PCD file")
     ("dest_directory", po::value<std::string>(), "Destination directory")
+    ("transformation_mode", po::value<bool>()->default_value(false), "Transformation(Translation and Rotation) pointcloud") // default: false
+
   ;
 
   po::variables_map vm;
@@ -116,6 +121,7 @@ int main(int argc, char** argv) {
       po::positional_options_description()
         .add("input_pcd", 1)
         .add("dest_directory", 1)
+        .add("transformation_mode", 1)
     ).run(), vm
   );
   po::notify(vm);
